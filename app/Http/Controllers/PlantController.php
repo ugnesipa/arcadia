@@ -9,7 +9,7 @@ use App\Http\Resources\PlantCollection;
 use Illuminate\Http\Response;
 
 class PlantController extends Controller
-{
+{//code for swagger interpretation for displaying all plants
     /**
      * Display a listing of the resource.
      *
@@ -34,11 +34,12 @@ class PlantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //function to show all plants
     public function index()
     {
         return new PlantCollection(Plant::all());
     }
-
+//code for swagger interpretation for storing a new plant
     /**
      * Store a newly created resource in storage.
      *
@@ -73,6 +74,7 @@ class PlantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\PlantResource
      */
+    //function to store new plant
     public function store(Request $request)
     {
         $plant = Plant::create($request->only([
@@ -81,7 +83,7 @@ class PlantController extends Controller
 
         return new PlantResource($plant);
     }
-
+//code for swagger interpretation for displaying a plant by id
     /**
      * Display the specified resource.
      *
@@ -114,6 +116,7 @@ class PlantController extends Controller
      * @param  \App\Models\Plant  $plant
      * @return \Illuminate\Http\PlantResource
      */
+    //function to show plant by id
     public function show(Plant $plant)
     {
         return new PlantResource($plant);
@@ -126,6 +129,7 @@ class PlantController extends Controller
      * @param  \App\Models\Plant  $plant
      * @return \Illuminate\Http\Response
      */
+    //function to update plant by id
     public function update(Request $request, Plant $plant)
     {
         $plant->update($request->only([
@@ -134,7 +138,7 @@ class PlantController extends Controller
 
         return new PlantResource($plant);
     }
-
+//code for swagger interpretation for deleting a plant by id
     /**
      * Remove the specified resource from storage.
      *
@@ -162,6 +166,7 @@ class PlantController extends Controller
      * @param  \App\Models\Plant  $plant
      * @return \Illuminate\Http\Response
      */
+    //function to delete plant by id
     public function destroy(Plant $plant)
     {
         $plant->delete();

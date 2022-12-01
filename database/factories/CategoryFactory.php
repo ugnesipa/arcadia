@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
  */
+
+//factory for inserting data into category table
 class CategoryFactory extends Factory
 {
     /**

@@ -14,6 +14,7 @@ class PlantCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        //returns array of plants
         return [
             'data' => $this->collection,
             'version' => '1.0.0',

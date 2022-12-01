@@ -9,6 +9,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CategoryCollection;
 
 class CategoryController extends Controller
+//code for swagger interpretation for displaying all categories
 {
     /**
      *
@@ -34,6 +35,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //function to show all categories
     public function index()
     {
         return new CategoryCollection(Category::all());
@@ -42,11 +44,12 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-    
+
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\CategoryResource
      */
+    //function to store new categories if needed
     public function store(Request $request)
     {
         // $category = Category::create($request->only([
@@ -55,6 +58,8 @@ class CategoryController extends Controller
 
         // return new CategoryResource($category);
     }
+
+//code for swagger interpretation for displaying categories by id
 
     /**
      * Display the specified resource.
@@ -88,6 +93,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\CategoryResource
      */
+    //function to show categories by id
     public function show(Category $category)
     {
         return new CategoryResource($category);
@@ -102,6 +108,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
+    //function to update category if needed
     public function update(Request $request, Category $category)
     {
         // $category->update($request->only([
@@ -119,6 +126,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
+    //function to delete a category by id if needed
     public function destroy(Category $category)
     {
         // $category->delete();

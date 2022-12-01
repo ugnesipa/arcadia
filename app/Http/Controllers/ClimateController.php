@@ -9,7 +9,8 @@ use App\Http\Resources\ClimateResource;
 use App\Http\Resources\ClimateCollection;
 
 class ClimateController extends Controller
-{
+
+{ //code for swagger interpretation for displaying all climates
     /**
      * Display a listing of the resource.
      *
@@ -33,6 +34,7 @@ class ClimateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+  //function to show all climates
     public function index()
     {
         return new ClimateCollection(Climate::all());
@@ -46,6 +48,7 @@ class ClimateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\ClimateResource
      */
+     //function to store new climate if needed
     public function store(Request $request)
     {
         // $climate = Climate::create($request->only([
@@ -54,7 +57,7 @@ class ClimateController extends Controller
 
         // return new ClimateResource($climate);
     }
-
+//code for swagger interpretation for displaying climates by id
     /**
      * Display the specified resource.
      *
@@ -87,6 +90,7 @@ class ClimateController extends Controller
      * @param  \App\Models\Climate  $climate
      * @return \Illuminate\Http\ClimateResource
      */
+       //function to show categories by id
     public function show(Climate $climate)
     {
         return new ClimateResource($climate);
@@ -99,6 +103,7 @@ class ClimateController extends Controller
      * @param  \App\Models\Climate  $climate
      * @return \Illuminate\Http\Response
      */
+    //function to update climate if needed
     public function update(Request $request, Climate $climate)
     {
         // $climate->update($request->only([
@@ -111,12 +116,13 @@ class ClimateController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-    
+
 
      *
      * @param  \App\Models\Climate  $climate
      * @return \Illuminate\Http\Response
      */
+    //function to delete a climate by id if needed
     public function destroy(Climate $climate)
     {
         // $climate->delete();

@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Resources\PlantCollection;
 use App\Http\Controllers\PlantController;
 use App\Http\Controllers\ClimateController;
 use App\Http\Controllers\CategoryController;
@@ -22,6 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//route to plants with all CRUD functions
 Route::apiResource('/plants', PlantController::class);
+//route to categories with only read functions (read all and read by id)
 Route::resource('/categories', CategoryController::class)->only(['index', 'show']);
+//route to climates with only read functions (read all and read by id)
 Route::resource('/climates', ClimateController::class)->only(['index', 'show']);

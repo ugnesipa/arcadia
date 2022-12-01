@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Plant>
  */
+
+ //factory for inserting data into plant table 
 class PlantFactory extends Factory
 {
     /**
