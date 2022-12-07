@@ -40,6 +40,35 @@ class ClimateController extends Controller
     /**
      * Display the specified resource.
      *
+<<<<<<< HEAD
+=======
+     * @OA\Get(
+     *     path="/api/climates/{id}",
+     *     description="Gets a climate by ID",
+     *     tags={"Climates"},
+     *          @OA\Parameter(
+     *          name="id",
+     *          description="Climate id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer")
+     *          ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation"
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     *
+>>>>>>> fb3ebee3ee0fc933d64df6b3af2fb0b25246cafb
      * @param  \App\Models\Climate  $climate
      * @return \Illuminate\Http\Response
      */
