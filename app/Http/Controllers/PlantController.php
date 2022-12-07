@@ -9,7 +9,7 @@ use App\Http\Resources\PlantCollection;
 use Illuminate\Http\Response;
 
 class PlantController extends Controller
-{//code for swagger interpretation for displaying all plants
+{ //code for swagger interpretation for displaying all plants
     /**
      * Display a listing of the resource.
      *
@@ -37,9 +37,10 @@ class PlantController extends Controller
     //function to show all plants
     public function index()
     {
-        return new PlantCollection(Plant::all());
+        return new PlantCollection(Plant::with('climate')->get());
+
     }
-//code for swagger interpretation for storing a new plant
+    //code for swagger interpretation for storing a new plant
     /**
      * Store a newly created resource in storage.
      *
@@ -52,12 +53,11 @@ class PlantController extends Controller
      *      @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *            required={"name", "category", "origin", "climate", "mainenace_rating", "description"},
+     *            required={"name", "category", "origin", "climate_id", "description"},
      *            @OA\Property(property="name", type="string", format="string", example="Sample Name"),
      *            @OA\Property(property="category", type="string", format="string", example="House Plant"),
+     *            @OA\Property(property="climate_id", type="integer", format="integer", example="3"),
      *            @OA\Property(property="origin", type="string", format="string", example="East Asia"),
-     *            @OA\Property(property="climate", type="string", format="string", example="Temperate"),
-     *            @OA\Property(property="maintenance_rating", type="integer", format="integer", example="1"),
      *            @OA\Property(property="description", type="string", format="string", example="A description about this lovely plant")
      *          )
      *      ),
@@ -78,12 +78,16 @@ class PlantController extends Controller
     public function store(Request $request)
     {
         $plant = Plant::create($request->only([
-            'name', 'category', 'origin', 'climate', 'maintenance_rating', 'description'
+            'name',
+            'category',
+            'climate_id',
+            'origin',
+            'description'
         ]));
 
         return new PlantResource($plant);
     }
-//code for swagger interpretation for displaying a plant by id
+    //code for swagger interpretation for displaying a plant by id
     /**
      * Display the specified resource.
      *
@@ -133,12 +137,12 @@ class PlantController extends Controller
     public function update(Request $request, Plant $plant)
     {
         $plant->update($request->only([
-            'name', 'category', 'origin', 'climate', 'maintenance_rating', 'description'
+            'name', 'category', 'climate_id', 'origin', 'description'
         ]));
 
         return new PlantResource($plant);
     }
-//code for swagger interpretation for deleting a plant by id
+    //code for swagger interpretation for deleting a plant by id
     /**
      * Remove the specified resource from storage.
      *

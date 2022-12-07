@@ -19,9 +19,10 @@ class PlantResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'category' => $this->category,
+            'climate_id' => $this->climate->id,
+            'climate_title' => $this->climate->title,
+            'climate_description' => $this->climate->description,
             'origin' => $this->origin,
-            'climate' => $this->climate,
-            'maintenance_rating' => $this->maintenance_rating,
             'description' => $this->description,
 
         ];

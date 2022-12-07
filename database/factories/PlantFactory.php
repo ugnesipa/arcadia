@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Plant>
  */
 
- //factory for inserting data into plant table 
+ //factory for inserting data into plant table
 class PlantFactory extends Factory
 {
     /**
@@ -23,8 +23,8 @@ class PlantFactory extends Factory
             'name' => $this->faker->word,
             'category' => $this->faker->text(50),
             'origin' => $this->faker->word,
-            'climate' => $this->faker->word,
-            'maintenance_rating' => $this->faker->numberBetween(1, 10),
+            // 'climate' => $this->faker->word,
+            // 'maintenance_rating' => $this->faker->numberBetween(1, 10),
             'description' => $this->faker->text(100),
 
         ];

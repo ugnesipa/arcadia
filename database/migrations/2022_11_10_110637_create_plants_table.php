@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('category');
             $table->string('origin');
-            $table->string('climate');
-            $table->integer('maintenance_rating');
+            // $table->string('climate_id');
+            // $table->integer('maintenance_rating');
             $table->text('description');
             $table->timestamps();
         });

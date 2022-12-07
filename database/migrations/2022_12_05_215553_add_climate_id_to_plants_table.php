@@ -4,9 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-//climate table migration - insert colums into climate table
-
-
 return new class extends Migration
 {
     /**
@@ -16,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('climates', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->timestamps();
+        Schema::table('plants', function (Blueprint $table) {
+            $table->unsignedBigInteger('climate_id');
+            $table->foreign('climate_id')->references('id')->on('climates')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
@@ -31,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('climates');
+        Schema::table('plants', function (Blueprint $table) {
+            $table->dropForeign(['climate_id']);
+            $table->dropColumn('climate_id');
+        });
     }
 };

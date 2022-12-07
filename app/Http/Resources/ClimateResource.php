@@ -14,11 +14,6 @@ class ClimateResource extends JsonResource
      */
     public function toArray($request)
     {
-        //returns array of data in climate
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-        ];
+        return parent::toArray($request);
     }
 }

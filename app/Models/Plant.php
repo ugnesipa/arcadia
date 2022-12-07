@@ -9,6 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class Plant extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'category', 'origin', 'climate', 'maintenance_rating', 'description'];
+    protected $fillable = ['name', 'category', 'climate_id', 'origin', 'description'];
     //protected $guarded = [];
+
+    //one climate to many plants collection
+    public function climate()
+    {
+        return $this->belongsTo(Climate::class);
+
+    }
+
 }

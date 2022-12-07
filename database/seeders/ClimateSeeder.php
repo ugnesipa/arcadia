@@ -6,8 +6,6 @@ use App\Models\Climate;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-//run seeder to insert factory data into the database
-
 class ClimateSeeder extends Seeder
 {
     /**
@@ -17,6 +15,9 @@ class ClimateSeeder extends Seeder
      */
     public function run()
     {
-        Climate::factory()->times(20)->create();
+        Climate::factory()
+        ->times(6)
+        ->hasPlants(5)
+        ->create();
     }
 }
