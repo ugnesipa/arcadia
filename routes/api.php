@@ -28,6 +28,3 @@ Route::apiResource('/plants', PlantController::class);
 Route::resource('/categories', CategoryController::class)->only(['index', 'show']);
 //route to climates with only read functions (read all and read by id)
 Route::resource('/climates', ClimateController::class);
-Route::resource('/climates', ClimateController::class)->only(['index', 'show']);
-//route to maintenance ratings with only read functions (read all and read by id)
-Route::resource('/maintenance_ratings', MaintenanceRatingController::class)->only(['index', 'show']);
