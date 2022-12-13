@@ -15,6 +15,7 @@ class PlantResource extends JsonResource
     public function toArray($request)
     {
 
+        //makes array for categories
         $categories = array();
         foreach ($this->categories as $category) {
             array_push($categories, $category->title);

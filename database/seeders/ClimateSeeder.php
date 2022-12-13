@@ -15,6 +15,7 @@ class ClimateSeeder extends Seeder
      */
     public function run()
     {
+        //create 5 instances of factory
         Climate::factory()
         ->times(6)
         ->hasPlants(5)

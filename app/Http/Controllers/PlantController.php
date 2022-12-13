@@ -78,7 +78,7 @@ class PlantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\PlantResource
      */
-    //function to store new plant
+    //function to store new plant with category array attached
     public function store(StorePlantRequest $request)
     {
         $plant = Plant::create($request->only([
@@ -131,6 +131,7 @@ class PlantController extends Controller
         return new PlantResource($plant);
     }
 
+    //swagger interpretation for updating a plant
     /**
      * Update the specified resource in storage.
      *
@@ -173,7 +174,7 @@ class PlantController extends Controller
      * @param  \App\Models\Plant  $plant
      * @return \Illuminate\Http\Response
      */
-    //function to update plant by id
+    //function to update plant by id with category
     public function update(UpdatePlantRequest $request, Plant $plant)
     {
         $plant->update($request->all());

@@ -25,12 +25,14 @@ class UpdateClimateRequest extends FormRequest
     {
         $method = $this->method();
 
+        //if the method is PUT - all fields are required
         if($method == 'PUT'){
             return [
                 'title' => ['required'],
                 'description' => ['required']
             ];
         }
+        //if other method to update (PATCH) not all methods are required
         else {
             return [
                 'title' => ['sometimes', 'required'],

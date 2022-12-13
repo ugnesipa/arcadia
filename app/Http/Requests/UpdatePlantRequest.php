@@ -24,7 +24,7 @@ class UpdatePlantRequest extends FormRequest
     public function rules()
     {
         $method = $this->method();
-
+        //if the method is PUT - all fields are required
         if($method == 'PUT'){
             return [
             'name' => ['required'],
@@ -34,6 +34,7 @@ class UpdatePlantRequest extends FormRequest
             'description' => ['required']
             ];
         }
+        //if other method to update (PATCH) not all methods are required
         else {
             return [
             'name' => ['sometimes', 'required'],

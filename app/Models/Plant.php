@@ -14,12 +14,13 @@ class Plant extends Model
     protected $fillable = ['name', 'category_id', 'climate_id', 'origin', 'description'];
     //protected $guarded = [];
 
-    //one climate to many plants collection
+    //one climate to many plants relationship definition
     public function climate()
     {
         return $this->belongsTo(Climate::class);
     }
 
+    //many to many relationship definition
     public function categories()
     {
         return $this->belongstoMany(Category::class)->withTimestamps();

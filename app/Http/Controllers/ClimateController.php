@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Climate;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\ClimateResource;
 use App\Http\Resources\ClimateCollection;
@@ -12,6 +11,7 @@ use App\Http\Requests\UpdateClimateRequest;
 
 class ClimateController extends Controller
 {
+    //swagger interpretation for displaying all climates
     /**
      * Display a listing of the resource.
      *
@@ -43,11 +43,14 @@ class ClimateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     //function to show all climates from climate collection and show them by pages
     public function index()
     {
         return new ClimateCollection(Climate::paginate(1));
     }
 
+    //swagger interpretation to store a climate
     /**
      * Store a newly created resource in storage.
      *
@@ -78,6 +81,8 @@ class ClimateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+     //function to store new climate - connects to StoreClimateRequest where i defined rules
     public function store(StoreClimateRequest $request)
     {
         $climate = Climate::create([
@@ -88,6 +93,7 @@ class ClimateController extends Controller
         return new ClimateResource($climate);
     }
 
+    //code for swagger interpretation for displaying climates by id
     /**
      * Display the specified resource.
      *
@@ -125,6 +131,7 @@ class ClimateController extends Controller
         return new ClimateResource($climate);
     }
 
+    //function to update climates by id
     /**
      * Update the specified resource in storage.
      *
@@ -164,11 +171,16 @@ class ClimateController extends Controller
      * @param  \App\Models\Climate  $climate
      * @return \Illuminate\Http\Response
      */
+
+
+     //function to update climate with UpdateClimateRequest where i defined rules
     public function update(UpdateClimateRequest $request, Climate $climate)
     {
         $climate->update($request->all());
+        return new ClimateResource($climate);
     }
 
+    //swagger interpretation for delete functionality
     /**
      * Remove the specified resource from storage.
      *
@@ -196,7 +208,9 @@ class ClimateController extends Controller
      * @param  \App\Models\Climate  $climate
      * @return Response
      */
-    public function destroy(Climate $climate)
+
+     //function to delete a climate by id
+     public function destroy(Climate $climate)
     {
         $climate->delete();
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-//plant table migration - insert colums into plant table
+//plant table migration
 
 return new class extends Migration
 {
@@ -15,13 +15,11 @@ return new class extends Migration
      */
     public function up()
     {
+        //create plants table
         Schema::create('plants', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            // $table->string('category');
             $table->string('origin');
-            // $table->string('climate_id');
-            // $table->integer('maintenance_rating');
             $table->text('description');
             $table->timestamps();
         });
@@ -34,6 +32,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('category_plant', function (Blueprint $table) {
+            $table->dropForeign(['plant_id']);
+            $table->dropColumn('plant_id');
+        });
         Schema::dropIfExists('plants');
     }
 };

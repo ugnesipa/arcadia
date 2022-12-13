@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+        //call climate and category seeders
         $this->call(ClimateSeeder::class);
         $this->call(CategorySeeder::class);
         // \App\Models\User::factory(10)->create();

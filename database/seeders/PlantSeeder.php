@@ -17,6 +17,7 @@ class PlantSeeder extends Seeder
      */
     public function run()
     {
+        //create 5 instances of factory
         Plant::factory()->times(50)->create();
     }
 }

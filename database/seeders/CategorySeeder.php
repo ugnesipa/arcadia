@@ -18,10 +18,12 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+        //create 5 instances of factory
         Category::factory()
         ->times(5)
         ->create();
 
+        //attach 2 or 3 random plants to each category
         foreach(Category::all() as $category){
             $plants = Plant::inRandomOrder()->take(rand(1,3))->pluck('id');
             $category->plants()->attach($plants);

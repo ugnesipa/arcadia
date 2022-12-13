@@ -11,7 +11,8 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
-//code for swagger interpretation for displaying all categories
+
+//swagger interpretation for displaying all categories
 {
     /**
      *
@@ -37,12 +38,14 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    //function to show all categories
+
+    //function to show all categories from category collection
     public function index()
     {
         return new CategoryCollection(Category::all());
     }
 
+    //swagger interpretation to store a category
     /**
      * Store a newly created resource in storage.
      *
@@ -73,7 +76,8 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\CategoryResource
      */
-    //function to store new categories if needed
+
+    //function to store new categories - connects to StoreCategoryRequest where i defined rules
     public function store(StoreCategoryRequest $request)
     {
         $category = Category::create([
@@ -118,12 +122,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\CategoryResource
      */
-    //function to show categories by id
+
+    //function to show categories by id from category resource
     public function show(Category $category)
     {
         return new CategoryResource($category);
     }
 
+    //swagger interpretation for update category function
     /**
      * Update the specified resource in storage.
      *
@@ -164,7 +170,8 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    //function to update category if needed
+
+    //function to update category with UpdateCategoryRequest where i defined rules
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->update($request->all());
@@ -172,6 +179,7 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
+    //swagger interpretation for delete functionality
     /**
      * Remove the specified resource from storage.
      *
@@ -200,7 +208,8 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    //function to delete a category by id if needed
+
+    //function to delete a category by id
     public function destroy(Category $category)
     {
         $category->delete();

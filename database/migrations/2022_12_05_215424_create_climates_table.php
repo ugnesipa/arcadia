@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        //create climates table
         Schema::create('climates', function (Blueprint $table) {
             $table->id();
             $table->string('title');

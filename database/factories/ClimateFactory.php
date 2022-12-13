@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Climate>
  */
+//factory for inserting data into climate table
 class ClimateFactory extends Factory
 {
     /**

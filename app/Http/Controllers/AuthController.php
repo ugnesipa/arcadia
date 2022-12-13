@@ -8,11 +8,14 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+//controls authorization, register and login in functionalities
 class AuthController extends Controller
 {
+    //register function
     public function register(Request $request)
     {
         try {
+            //validations for succesfull registering
             $validator = Validator::make($request->all(),
             [
                 'name' => 'required|min:3',
@@ -20,7 +23,7 @@ class AuthController extends Controller
                 'password' => 'required|min:6',
             ]);
 
-
+            //if registration fails
             if ($validator->fails()) {
                 // create the JSON that will be returned in the response
                 return response()->json(
@@ -29,7 +32,7 @@ class AuthController extends Controller
                     'message' => 'validation error',
                     $validator->errors()
                 ],
-                // Have a look at all the Response codes in by ctrl click HTTP_UNPROCESSABLE_ENTITY below.
+                // returns a response Unprocessable Entity.
                 Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
@@ -53,7 +56,7 @@ class AuthController extends Controller
             // HTTP_OK has the value 200 - success
             ], Response::HTTP_OK);
         }
-
+    //if there is a server error that fails the registration
     catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -62,15 +65,18 @@ class AuthController extends Controller
         }
     }
 
+    //login function
     public function login(Request $request)
     {
         try {
+            //log in validation requirements
             $validateUser = Validator::make($request->all(),
             [
                 'email' => 'required|email',
                 'password' => 'required'
             ]);
 
+            //if validation fails
             if($validateUser->fails()){
                 return response()->json([
                     'status' => false,
@@ -79,6 +85,7 @@ class AuthController extends Controller
                 ], 401);
             }
 
+            //if email and password does not match
             if(!Auth::attempt($request->only(['email', 'password']))){
                 return response()->json([
                     'status' => false,
@@ -86,8 +93,10 @@ class AuthController extends Controller
                 ], 401);
             }
 
+            //user variable from email
             $user = User::where('email', $request->email)->first();
 
+            //return for successful registration
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
@@ -110,6 +119,7 @@ class AuthController extends Controller
         return response()->json(['user' => auth()->user()], Response::HTTP_OK);
     }
 
+    //logs user out and deletes token
     public function logout(Request $request)
     {
 

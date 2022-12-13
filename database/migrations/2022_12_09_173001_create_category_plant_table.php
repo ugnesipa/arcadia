@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
+        //create pivot table category_plant
         Schema::create('category_plant', function (Blueprint $table) {
             $table->id();
 
+            //assign foreign keys category_id and plant_id
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('plant_id');
-
             $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('plant_id')->references('id')->on('plants')->onUpdate('cascade')->onDelete('cascade');
 

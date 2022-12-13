@@ -12,6 +12,7 @@ class ClimateResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+    //returns array of data in the climate
     public function toArray($request)
     {
         return parent::toArray($request);

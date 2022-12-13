@@ -13,6 +13,7 @@ class Category extends Model
     protected $fillable = ['title', 'description'];
     //protected $guarded = [];
 
+    //many to many plants realtionship definition
     public function plants()
     {
         return $this->belongstoMany(Plant::class)->withTimestamps();

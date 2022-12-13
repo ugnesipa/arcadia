@@ -12,6 +12,7 @@ class Climate extends Model
 
     protected $fillable = ['title', 'description'];
 
+    //one climate to many plants realtionship definition
     public function plants() {
         return $this->hasMany(Plant::class);
     }
