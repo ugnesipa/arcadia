@@ -13,10 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('maintenance_ratings', function (Blueprint $table) {
+        Schema::create('category_plant', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description');
+
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('plant_id');
+
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('plant_id')->references('id')->on('plants')->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -28,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('maintenance_ratings');
+        Schema::dropIfExists('category_plant');
     }
 };

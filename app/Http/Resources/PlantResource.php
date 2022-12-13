@@ -14,14 +14,19 @@ class PlantResource extends JsonResource
      */
     public function toArray($request)
     {
+
+        $categories = array();
+        foreach ($this->categories as $category) {
+            array_push($categories, $category->title);
+        }
+
         //returns array of plant data
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'category' => $this->category,
+            'categories' => $categories,
             'climate_id' => $this->climate->id,
             'climate_title' => $this->climate->title,
-            'climate_description' => $this->climate->description,
             'origin' => $this->origin,
             'description' => $this->description,
 

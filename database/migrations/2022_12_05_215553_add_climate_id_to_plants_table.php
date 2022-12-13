@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('plants', function (Blueprint $table) {
             $table->unsignedBigInteger('climate_id');
-            $table->foreign('climate_id')->references('id')->on('climates')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('climate_id')->references('id')->on('climates')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

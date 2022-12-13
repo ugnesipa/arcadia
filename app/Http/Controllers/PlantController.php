@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Plant;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Resources\PlantResource;
 use App\Http\Resources\PlantCollection;
-use Illuminate\Http\Response;
+use App\Http\Requests\StorePlantRequest;
+use App\Http\Requests\UpdatePlantRequest;
 
 class PlantController extends Controller
 { //code for swagger interpretation for displaying all plants
@@ -37,8 +39,9 @@ class PlantController extends Controller
     //function to show all plants
     public function index()
     {
-        return new PlantCollection(Plant::with('climate')->get());
-
+        return new PlantCollection(Plant::with('climate')
+            ->with('categories')
+            ->get());
     }
     //code for swagger interpretation for storing a new plant
     /**
@@ -50,12 +53,13 @@ class PlantController extends Controller
      *      tags={"Plants"},
      *      summary="Create a new Plant",
      *      description="Stores the plant in the DB",
+     *      security={{"bearerAuth":{}}},
      *      @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
      *            required={"name", "category", "origin", "climate_id", "description"},
      *            @OA\Property(property="name", type="string", format="string", example="Sample Name"),
-     *            @OA\Property(property="category", type="string", format="string", example="House Plant"),
+     *            @OA\Property(property="categories", type="integer", format="integer", example="[1, 2]"),
      *            @OA\Property(property="climate_id", type="integer", format="integer", example="3"),
      *            @OA\Property(property="origin", type="string", format="string", example="East Asia"),
      *            @OA\Property(property="description", type="string", format="string", example="A description about this lovely plant")
@@ -75,15 +79,16 @@ class PlantController extends Controller
      * @return \Illuminate\Http\PlantResource
      */
     //function to store new plant
-    public function store(Request $request)
+    public function store(StorePlantRequest $request)
     {
         $plant = Plant::create($request->only([
             'name',
-            'category',
             'climate_id',
             'origin',
             'description'
         ]));
+
+        $plant->categories()->attach($request->categories);
 
         return new PlantResource($plant);
     }
@@ -129,16 +134,51 @@ class PlantController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @OA\Put(
+     *      path="/api/plants/{id}",
+     *      operationId="putPlant",
+     *      tags={"Plants"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Plant id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer")
+     *          ),
+     *      summary="Update a plant",
+     *      description="Updates plants in the database",
+     *      security={{"bearerAuth":{}}},
+     *      @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *            required={"name", "categories", "climate_id", "origin", "description"},
+     *            @OA\Property(property="name", type="string", format="string", example="Sample name"),
+     *            @OA\Property(property="categories", type="integer", format="integer", example="[3, 5]"),
+     *            @OA\Property(property="climate_id", type="integer", format="integer", example="8"),
+     *            @OA\Property(property="origin", type="string", format="integer", example="East Asia"),
+     *            @OA\Property(property="description", type="string", format="string", example="A long description about this lovely plant")
+     *          )
+     *      ),
+     *     @OA\Response(
+     *          response=200, description="Success",
+     *          @OA\JsonContent(
+     *             @OA\Property(property="status", type="integer", example=""),
+     *             @OA\Property(property="data",type="object")
+     *          )
+     *     )
+     * )
+     *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Plant  $plant
      * @return \Illuminate\Http\Response
      */
     //function to update plant by id
-    public function update(Request $request, Plant $plant)
+    public function update(UpdatePlantRequest $request, Plant $plant)
     {
-        $plant->update($request->only([
-            'name', 'category', 'climate_id', 'origin', 'description'
-        ]));
+        $plant->update($request->all());
+
+        $plant->categories()->attach($request->categories);
 
         return new PlantResource($plant);
     }
@@ -152,6 +192,7 @@ class PlantController extends Controller
      *    tags={"Plants"},
      *    summary="Delete a Plant",
      *    description="Delete Plant",
+     *    security={{"bearerAuth":{}}},
      *    @OA\Parameter(name="id", in="path", description="Id of a Plant", required=true,
      *        @OA\Schema(type="integer")
      *    ),
@@ -174,6 +215,7 @@ class PlantController extends Controller
     public function destroy(Plant $plant)
     {
         $plant->delete();
+
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
         Schema::create('plants', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('category');
+            // $table->string('category');
             $table->string('origin');
             // $table->string('climate_id');
             // $table->integer('maintenance_rating');

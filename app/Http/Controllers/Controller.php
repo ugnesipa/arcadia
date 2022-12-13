@@ -16,7 +16,7 @@ use Illuminate\Routing\Controller as BaseController;
  *          }
  *      },
  *      title="Plant API",
- *      description="Simple Plant API",
+ *      description="Ugne's Simple Plant API",
  *      @OA\Contact(
  *          email="n00201661@student.iadt.ie"
  *      ),
@@ -25,10 +25,15 @@ use Illuminate\Routing\Controller as BaseController;
  *         url="https://www.apache.org/licenses/LICENSE-2.0.html"
  *     )
  * )
- * @OA\Get(
- *      path="/",
- *      description="Home Page",
- *      @OA\Response(response="default", description="Welcome page")
+
+ *
+ * * @OA\SecurityScheme(
+ *      securityScheme="bearerAuth",
+ *      in="header",
+ *      name="bearerAuth",
+ *      type="http",
+ *      scheme="bearer",
+ *      bearerFormat="JWT",
  * )
  */
 

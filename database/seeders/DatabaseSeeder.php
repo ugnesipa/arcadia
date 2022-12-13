@@ -15,13 +15,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        // $this->call(ClimateSeeder::class);
+        $this->call(ClimateSeeder::class);
+        $this->call(CategorySeeder::class);
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
-            'name' => 'ugne',
-            'email' => 'ugne@iadt.com',
-            'password' => 'secret'
-        ]);
+        // \App\Models\User::factory()->create([
+        //     'name' => 'ugne',
+        //     'email' => 'ugne@iadt.com',
+        //     'password' => 'secret'
+        // ]);
     }
 }

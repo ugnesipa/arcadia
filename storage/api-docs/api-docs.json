@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Plant API",
-        "description": "Simple Plant API",
+        "description": "Ugne's Simple Plant API",
         "contact": {
             "email": "n00201661@student.iadt.ie"
         },
@@ -21,7 +21,7 @@
                 "tags": [
                     "Categories"
                 ],
-                "description": "Displays all the categories",
+                "description": "Displays all categories",
                 "operationId": "3f5817a34833d0a1f4af4548dd3aeaba",
                 "responses": {
                     "200": {
@@ -34,6 +34,66 @@
                         "description": "Forbidden"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Create a new Category",
+                "description": "Stores the category in the database",
+                "operationId": "storeCategory",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Sample title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "A quick description about this category"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/categories/{id}": {
@@ -66,29 +126,146 @@
                         "description": "Forbidden"
                     }
                 }
-            }
-        },
-        "/": {
-            "get": {
-                "description": "Home Page",
-                "responses": {
-                    "default": {
-                        "description": "Welcome page"
-                    }
-                }
-            }
-        },
-        "/api/maintenance_ratings": {
-            "get": {
+            },
+            "put": {
                 "tags": [
-                    "MaintenanceRating"
+                    "Categories"
                 ],
-                "summary": "Display a listing of the resource.",
-                "description": "Displays all the Maintenace Rating",
-                "operationId": "65d7bb2a4392808708847a04d3af8a76",
+                "summary": "Update a category",
+                "description": "Updates the category in the database",
+                "operationId": "putCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Sample title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "A quick description about this category"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "Successful operation, Returns a list of Climates in JSON format"
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Delete a Category",
+                "description": "Delete Category",
+                "operationId": "destroyCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of a Category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": "204"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/climates?page={page}": {
+            "get": {
+                "tags": [
+                    "Climates"
+                ],
+                "summary": "Display a listing of the resource.",
+                "description": "Displays all climates, page by page",
+                "operationId": "33702dbd55ac840a22bac5b5d7d8b454",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "page",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation, Returns a list of Categories in JSON format"
                     },
                     "401": {
                         "description": "Unauthenticated"
@@ -99,19 +276,81 @@
                 }
             }
         },
-        "/api/maintenance_ratings/{id}": {
+        "/api/climates": {
+            "post": {
+                "tags": [
+                    "Climates"
+                ],
+                "summary": "Create a new Climate",
+                "description": "Stores the climate in the database",
+                "operationId": "storeClimate",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Sample title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "A quick description about this climate"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/climates/{id}": {
             "get": {
                 "tags": [
-                    "MaintenanceRating"
+                    "Climates"
                 ],
                 "summary": "Display the specified resource.",
-                "description": "Gets a maintenance rating by ID",
-                "operationId": "d85beaeba240fe32b2f881e7fca78f6a",
+                "description": "Gets a climate by id",
+                "operationId": "7987fadc8afc3a41c3d064f096ccf5d4",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Maintenance rating id",
+                        "description": "Climate id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -129,6 +368,122 @@
                         "description": "Forbidden"
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Climates"
+                ],
+                "summary": "Update a climate",
+                "description": "Updates the climate in the database",
+                "operationId": "putClimate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Climate id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Sample title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "A quick description about this climate"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Climates"
+                ],
+                "summary": "Delete a Climate",
+                "description": "Delete Climate",
+                "operationId": "destroyClimate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the Climate",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": "204"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/plants": {
@@ -176,10 +531,10 @@
                                         "format": "string",
                                         "example": "Sample Name"
                                     },
-                                    "category": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "House Plant"
+                                    "categories": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "[1, 2]"
                                     },
                                     "climate_id": {
                                         "type": "integer",
@@ -222,7 +577,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/plants/{id}": {
@@ -255,6 +615,95 @@
                         "description": "Forbidden"
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Plants"
+                ],
+                "summary": "Update a plant",
+                "description": "Updates plants in the database",
+                "operationId": "putPlant",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Plant id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "categories",
+                                    "climate_id",
+                                    "origin",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Sample name"
+                                    },
+                                    "categories": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "[3, 5]"
+                                    },
+                                    "climate_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "8"
+                                    },
+                                    "origin": {
+                                        "type": "string",
+                                        "format": "integer",
+                                        "example": "East Asia"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "A long description about this lovely plant"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -294,7 +743,23 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
     }
